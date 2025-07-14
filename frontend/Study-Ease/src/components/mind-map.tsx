@@ -483,6 +483,9 @@ export function MindMap({ taskId }: MindMapProps) {
       clone.style.top = "-9999px";
       document.body.appendChild(clone);
 
+      // Add this before html2canvas is called
+      clone.classList.add("mindmap-export-area");
+
       try {
         // Convert all colors to RGB before capturing
         const convertColorsToRGB = (element: HTMLElement) => {

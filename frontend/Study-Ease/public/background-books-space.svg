@@ -1,0 +1,50 @@
+
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <!-- Background -->
+  <rect width="600" height="400" fill="#F8F6F1"/>
+
+  <!-- Shelf -->
+  <rect x="50" y="320" width="500" height="15" fill="#B08D57" rx="5"/>
+
+  <!-- Book 1 -->
+  <rect x="70" y="180" width="40" height="140" fill="#6D9886" rx="3"/>
+  <rect x="72" y="185" width="36" height="5" fill="#D9D9D9"/>
+  <rect x="72" y="195" width="36" height="5" fill="#D9D9D9"/>
+
+  <!-- Book 2 -->
+  <rect x="120" y="160" width="30" height="160" fill="#FFADAD" rx="3"/>
+  <rect x="122" y="165" width="26" height="5" fill="#fff"/>
+  <rect x="122" y="175" width="26" height="5" fill="#fff"/>
+
+  <!-- Book 3 (Tilted) -->
+  <g transform="rotate(-10, 180, 250)">
+    <rect x="180" y="120" width="35" height="180" fill="#9ADCFF" rx="3"/>
+    <rect x="182" y="125" width="31" height="5" fill="#EFFFFD"/>
+  </g>
+
+  <!-- Book 4 -->
+  <rect x="230" y="190" width="40" height="130" fill="#FFC75F" rx="3"/>
+  <rect x="232" y="195" width="36" height="5" fill="#fff"/>
+  <rect x="232" y="205" width="36" height="5" fill="#fff"/>
+
+  <!-- Book 5 -->
+  <rect x="280" y="170" width="35" height="150" fill="#A3D2CA" rx="3"/>
+  <circle cx="297.5" cy="180" r="4" fill="#E2F0F9"/>
+  <circle cx="297.5" cy="190" r="4" fill="#E2F0F9"/>
+
+  <!-- Book 6 (Thicker) -->
+  <rect x="330" y="150" width="50" height="170" fill="#845EC2" rx="3"/>
+  <rect x="332" y="155" width="46" height="8" fill="#D5D6EA"/>
+  <rect x="332" y="170" width="46" height="8" fill="#D5D6EA"/>
+
+  <!-- Plant pot -->
+  <rect x="460" y="250" width="40" height="30" fill="#C18C5D" rx="4"/>
+  <path d="M480 250 C470 240, 475 230, 480 220 C485 230, 490 240, 480 250 Z" fill="#7FB77E"/>
+  <path d="M470 250 C460 240, 465 230, 470 220 C475 230, 480 240, 470 250 Z" fill="#7FB77E"/>
+
+  <!-- Book title example text -->
+  <text x="75" y="300" font-family="sans-serif" font-size="10" fill="#333" transform="rotate(-90 75,300)">Learning</text>
+  <text x="127" y="305" font-family="sans-serif" font-size="9" fill="#333" transform="rotate(-90 127,305)">Design</text>
+  <text x="185" y="290" font-family="sans-serif" font-size="9" fill="#333" transform="rotate(-90 185,290)">AI</text>
+  <text x="235" y="300" font-family="sans-serif" font-size="10" fill="#333" transform="rotate(-90 235,300)">Coding</text>
+</svg>
