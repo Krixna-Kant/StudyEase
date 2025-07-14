@@ -29,7 +29,7 @@
 
   <!-- Brand Name with reduced padding -->
   <text x="110" y="55" font-family="Segoe UI, sans-serif" font-size="32" font-weight="700" fill="url(#grad)">
-    StudyBuddy
+    StudyEase
   </text>
 
   <!-- Tagline -->

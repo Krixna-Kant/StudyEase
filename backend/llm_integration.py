@@ -26,7 +26,7 @@ def generate_notes(transcript_text):
         ]
     )
     # save into file
-    with open("outputs/llm_output.txt", "w") as file:
+    with open("outputs/llm_output.txt", "w", encoding="utf-8") as file:
         file.write(response.choices[0].message.content)
         file.close()
     

@@ -87,6 +87,20 @@ const mockSummary = `
 This discussion explores artificial intelligence and its societal impact. The speakers define AI as computer systems designed to perform tasks requiring human intelligence, including learning, reasoning, and language understanding. They highlight AI's prevalence in everyday applications such as voice assistants, recommendation systems, email filters, navigation apps, and healthcare diagnostics. The conversation emphasizes AI's growing importance and integration into daily life.
 `;
 
+async function openFileDB() {
+  return new Promise<IDBDatabase>((resolve, reject) => {
+    const request = window.indexedDB.open("fileDB", 1);
+    request.onupgradeneeded = (event) => {
+      const db = request.result;
+      if (!db.objectStoreNames.contains("files")) {
+        db.createObjectStore("files");
+      }
+    };
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
 export default function ResultsPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -184,47 +198,39 @@ export default function ResultsPage() {
     const loadFileFromDB = async () => {
       console.log("Results - Loading file from IndexedDB");
       try {
-        const db = await window.indexedDB.open("fileDB", 1);
-        db.onupgradeneeded = (event) => {
-          const target = event.target as IDBOpenDBRequest;
-          target.result.createObjectStore("files");
-        };
+        const db = await openFileDB();
+        const transaction = db.transaction("files", "readonly");
+        const store = transaction.objectStore("files");
+        const request = store.get("uploadedFile");
+        request.onsuccess = () => {
+          if (request.result) {
+            const filename = localStorage.getItem("filename") || "video";
+            const fileType = localStorage.getItem("fileType") || "video";
 
-        db.onsuccess = () => {
-          const transaction = db.result.transaction("files", "readonly");
-          const store = transaction.objectStore("files");
-          const request = store.get("uploadedFile");
-
-          request.onsuccess = () => {
-            if (request.result) {
-              const filename = localStorage.getItem("filename") || "video";
-              const fileType = localStorage.getItem("fileType") || "video";
-
-              if (fileType === "pdf") {
-                // Convert the PDF file to base64
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                  const base64Data = e.target?.result as string;
-                  // Create data URL for PDF
-                  const pdfDataUrl = `data:application/pdf;base64,${
-                    base64Data.split(",")[1]
-                  }`;
-                  setPdfViewerURL(pdfDataUrl);
-                  console.log("PDF data URL created successfully");
-                };
-                reader.readAsDataURL(request.result);
-              } else {
-                // Handle video files as before
-                const newFile = new File([request.result], filename, {
-                  type: "video/mp4",
-                });
-                const fileURL = URL.createObjectURL(newFile);
-                setFileURL(fileURL);
-              }
+            if (fileType === "pdf") {
+              // Convert the PDF file to base64
+              const reader = new FileReader();
+              reader.onload = (e) => {
+                const base64Data = e.target?.result as string;
+                // Create data URL for PDF
+                const pdfDataUrl = `data:application/pdf;base64,${
+                  base64Data.split(",")[1]
+                }`;
+                setPdfViewerURL(pdfDataUrl);
+                console.log("PDF data URL created successfully");
+              };
+              reader.readAsDataURL(request.result);
             } else {
-              console.log("Results - No file found in IndexedDB");
+              // Handle video files as before
+              const newFile = new File([request.result], filename, {
+                type: "video/mp4",
+              });
+              const fileURL = URL.createObjectURL(newFile);
+              setFileURL(fileURL);
             }
-          };
+          } else {
+            console.log("Results - No file found in IndexedDB");
+          }
         };
       } catch (error) {
         console.error("Error loading file from IndexedDB:", error);

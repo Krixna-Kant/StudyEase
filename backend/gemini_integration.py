@@ -51,7 +51,7 @@ def generate_notes(transcript_text):
         logger.info("Content generation successful")
         
         # Save to file for caching
-        with open("outputs/llm_output.txt", "w") as file:
+        with open("outputs/llm_output.txt", "w", encoding="utf-8") as file:
             file.write(response.text)
             file.close()
         

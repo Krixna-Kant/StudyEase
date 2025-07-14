@@ -31,6 +31,20 @@ interface UploadProps {
   onTaskIdUpdate?: (taskId: string) => void;
 }
 
+async function openFileDB() {
+  return new Promise<IDBDatabase>((resolve, reject) => {
+    const request = window.indexedDB.open("fileDB", 1);
+    request.onupgradeneeded = (event) => {
+      const db = request.result;
+      if (!db.objectStoreNames.contains("files")) {
+        db.createObjectStore("files");
+      }
+    };
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
 export function Upload({ onTaskIdUpdate }: UploadProps) {
   const router = useRouter();
   const [isDragging, setIsDragging] = useState(false);
@@ -95,12 +109,10 @@ export function Upload({ onTaskIdUpdate }: UploadProps) {
       setUploadStatus("Upload successful! Processing file...");
 
       // store in indexedDB
-      const db = await window.indexedDB.open("fileDB", 1);
-      db.onsuccess = () => {
-        const transaction = db.result.transaction("files", "readwrite");
-        const store = transaction.objectStore("files");
-        store.put(file, "uploadedFile");
-      };
+      const db = await openFileDB();
+      const transaction = db.transaction("files", "readwrite");
+      const store = transaction.objectStore("files");
+      store.put(file, "uploadedFile");
 
       // Store the task ID and filename for the processing page
       localStorage.setItem("taskId", data.task_id);
