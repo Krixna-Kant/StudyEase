@@ -1,266 +1,118 @@
 # StudyEase - AI-Powered Learning Assistant
 
-<div align="center">
-  <img src="./frontend/Study-Ease/public/logo.svg" alt="StudyEase Logo" width="400"/>
-  <p>Transform your learning experience with AI-powered study tools</p>
-</div>
+**Project by Team Squirtle**
 
-## Authors:
+---
 
-1. Krishna
+## 🚀 Overview
 
-## Inspiration
+StudyEase is an AI-powered platform designed to help students and lifelong learners get the most out of their study materials. With StudyEase, you can upload lecture videos, PDFs, or YouTube links and instantly receive:
+- Accurate transcriptions
+- AI-generated summaries and detailed notes
+- Interactive flashcards
+- Mind maps for visual learning
+- Quizzes to test your understanding
+- A chat assistant for Q&A
+- Downloadable PDFs of your notes
+- A history of all your uploads and results
 
-StudyEase was born from the challenges students face in effectively processing and retaining information from educational videos and documents. We recognized that traditional note-taking methods often fall short in capturing the full depth of learning materials, and students need more interactive and engaging ways to study. Our inspiration came from the desire to create an AI-powered study companion that could transform passive learning into an active, engaging experience.
+Whether you're preparing for exams, reviewing lectures, or just want to learn smarter, StudyEase streamlines the process and makes studying more engaging and effective.
 
-## 🌟 Features
+---
 
-- **Video & PDF Processing**
+## 🛠️ How It Works
 
-  - Upload educational videos or PDFs
-  - Support for YouTube video links
-  - Automatic transcription of video content
-  - PDF text extraction and analysis
+1. **Upload** your study material (video, PDF, or YouTube URL).
+2. **Processing:**
+   - The backend extracts audio (if needed), transcribes it using Google Speech-to-Text, and processes the text with advanced AI models (Gemini/OpenAI).
+   - Summaries, notes, flashcards, mind maps, and quizzes are generated automatically.
+3. **Results:**
+   - Access your interactive dashboard with tabs for notes, chat, flashcards, mind map, and quiz.
+   - Download notes as PDF, export mind maps, and chat with the AI assistant.
+4. **History:**
+   - All your uploads and results are saved for easy access and review.
 
-- **AI-Powered Study Tools**
+### 🏗️ Architecture Diagram
 
-  - 📝 Smart Notes Generation
-  - 🎴 Interactive Flashcards
-  - 🧠 Mind Maps
-  - ❓ Auto-generated Quizzes
-  - 💬 Context-aware Chat Assistant
-  - 📊 Progress Tracking
+![StudyEase Architecture](./documents/architecture.png)
 
-- **User Experience**
-  - 🌓 Dark/Light Theme
-  - 📱 Responsive Design
-  - 🔒 Secure Authentication
-  - 📚 Study History
-  - 📥 PDF Export
+---
 
-## 🏗️ Architecture
+## ✨ Features
+- **Automatic Transcription**: Converts video/audio to text using Google Speech-to-Text
+- **AI Summaries & Notes**: Generates concise summaries and detailed notes
+- **Flashcards**: Creates flashcards from your material for easy review
+- **Mind Maps**: Visualizes key concepts and relationships
+- **Quizzes**: Tests your understanding with AI-generated questions
+- **Chat Assistant**: Ask questions about your material and get instant answers
+- **PDF Export**: Download your notes for offline use
+- **History**: Access all your previous uploads and results
+- **Light/Dark Mode**: Study comfortably any time of day
 
-<div align="center">
-  <img src="./documents/architecture.png" alt="StudyEase Architecture" width="100%"/>
-</div>
+---
 
-## 🚀 Tech Stack
+## 🖥️ Getting Started
 
-### Frontend
+1. **Clone the repo:**
+   ```bash
+   git clone <repo-url>
+   cd StudyEase
+   ```
+2. **Set up the backend:**
+   - Python 3.8+, MongoDB, Google Cloud credentials
+   - See `backend/README.md` for details
+3. **Set up the frontend:**
+   - Node.js 18+, npm
+   - See `frontend/Study-Ease/README.md` for details
 
-- [Next.js 15](https://nextjs.org/) - React Framework
-- [TypeScript](https://www.typescriptlang.org/) - Type Safety
-- [Tailwind CSS](https://tailwindcss.com/) - Styling
-- [Radix UI](https://www.radix-ui.com/) - UI Components
-- [React Flow](https://reactflow.dev/) - Mind Map Visualization
-- [Lucide Icons](https://lucide.dev/) - Icons
+---
 
-### Backend
+## 🔑 Environment Variables & API Keys
 
-- [Flask](https://flask.palletsprojects.com/) - Python Web Framework
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Google Cloud Speech-to-Text](https://cloud.google.com/speech-to-text) - Audio Transcription
-- [Google Gemini](https://cloud.google.com/vertex-ai) - AI/ML Processing
-- [PyTube](https://pytube.io/) - YouTube Integration
+To run StudyEase, you need to set up a `.env` file in the `backend/` directory with the following variables:
 
-## 🛠️ Setup & Installation
-
-### Prerequisites
-
-- Node.js 18+ and npm
-- Python 3.8+
-- MongoDB
-- FFmpeg
-- Google Cloud Account with necessary APIs enabled
-
-### Frontend Setup
-
-```bash
-# Navigate to frontend directory
-cd frontend/Study-Ease
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
+```
+MONGO_URI=your-mongodb-uri
+GOOGLE_APPLICATION_CREDENTIALS=./your-service-account-key.json
+GCS_BUCKET_NAME=your-gcs-bucket-name
+GOOGLE_API_KEY=your-google-api-key
 ```
 
-### Backend Setup
+**How to get these:**
+- **MONGO_URI:**
+  - Use a local MongoDB instance (`mongodb://localhost:27017/studyease`) or [MongoDB Atlas](https://www.mongodb.com/atlas/database) for a cloud database.
+- **GOOGLE_APPLICATION_CREDENTIALS:**
+  - Go to [Google Cloud Console](https://console.cloud.google.com/), create a project, enable the Speech-to-Text API, and create a service account. Download the JSON key and place it in the `backend/` folder.
+- **GCS_BUCKET_NAME:**
+  - In Google Cloud Console, create a Storage bucket and use its name here.
+- **GOOGLE_API_KEY:**
+  - In Google Cloud Console, create an API key with access to Gemini and Speech-to-Text APIs.
 
-```bash
-# Navigate to backend directory
-cd backend
+> **Note:** Never commit your `.env` or service account JSON to GitHub. These are already gitignored for your safety.
 
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+---
 
-# Install dependencies
-pip install -r requirements.txt
+## 📦 Project Structure
+- `backend/` — Flask API, AI integrations, processing logic
+- `frontend/Study-Ease/` — Next.js app, UI components
+- `documents/` — Architecture diagrams, docs
 
-# Install FFmpeg (macOS)
-brew install ffmpeg
+---
 
-# Start backend server
-python app.py
-```
+## 🛡️ Security & Best Practices
+- Sensitive files (`.env`, service account keys) are gitignored
+- No API keys or secrets in code
+- Follows GitHub commit best practices
 
-### Environment Variables
+---
 
-#### Backend (.env)
+## 👥 Team
+**Project by Team Squirtle**
 
-```env
-MONGO_URI=your_mongodb_connection_string
-GCS_BUCKET_NAME=your_gcs_bucket_name
-GOOGLE_APPLICATION_CREDENTIALS=path_to_your_service_account_json
-```
-
-## 🔑 Google Cloud Setup Guide
-
-### 1. Create a Google Cloud Project
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Click on the project dropdown near the top of the page
-3. Click "New Project"
-4. Enter a project name and click "Create"
-
-### 2. Enable Required APIs
-
-1. In the Google Cloud Console, go to "APIs & Services" > "Library"
-2. Search for and enable these APIs:
-   - "Google Cloud Speech-to-Text API"
-   - "Gemini API"
-   - "Cloud Storage API"
-
-For each API:
-
-- Click on the API name
-- Click "Enable"
-- Wait for activation to complete
-
-### 3. Create a Service Account & Generate Key
-
-1. Go to "IAM & Admin" > "Service Accounts"
-2. Click "Create Service Account"
-3. Fill in the details:
-   - Name: `studyease-service`
-   - Description: `Service account for StudyEase application`
-4. Click "Create and Continue"
-5. Add these roles:
-   - `Cloud Speech-to-Text User`
-   - `Storage Object Viewer`
-   - `Storage Object Creator`
-6. Click "Continue" and then "Done"
-7. Generate the key:
-   - Find your service account in the list
-   - Click the three dots (⋮) under "Actions"
-   - Select "Manage keys"
-   - Click "Add Key" > "Create new key"
-   - Choose "JSON" format
-   - Click "Create"
-   - The key file will automatically download
-
-### 4. Set Up Google Cloud Storage
-
-1. Go to "Cloud Storage" > "Buckets"
-2. Click "Create Bucket"
-3. Configure your bucket:
-   - Choose a unique name
-   - Select your preferred location
-   - Leave other settings as default
-4. Click "Create"
-
-### 5. Get Gemini API Key
-
-1. Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Click "Get API Key"
-3. If you don't have any keys:
-   - Click "Create API key"
-   - Copy and save the key securely
-4. If you have existing keys:
-   - Use an existing key or create a new one
-   - Copy the key value
-
-### 6. Configure Environment Variables
-
-1. Move the downloaded service account JSON key to your project's backend directory
-2. Update your `backend/.env` file with:
-   ```env
-   GOOGLE_APPLICATION_CREDENTIALS=./your-service-account-key.json
-   GCS_BUCKET_NAME=your-bucket-name
-   GEMINI_API_KEY=your-gemini-api-key
-   ```
-
-### Important Security Notes
-
-1. **Never commit your service account key or API keys to version control**
-2. Add these patterns to your `.gitignore`:
-   ```
-   *.json
-   .env
-   ```
-3. Keep your API keys and service account key secure
-4. Rotate keys periodically for security
-5. Set up proper IAM roles and permissions in production
-
-### Troubleshooting Google Cloud Setup
-
-1. **API Enabling Issues**
-
-   - Ensure billing is enabled for your project
-   - Wait a few minutes after enabling APIs
-   - Check if you have necessary permissions
-
-2. **Service Account Issues**
-
-   - Verify the key file is in the correct location
-   - Check if the service account has required roles
-   - Ensure the key file path in `.env` is correct
-
-3. **Storage Bucket Issues**
-
-   - Verify bucket name is globally unique
-   - Check if service account has storage permissions
-   - Ensure bucket location matches your requirements
-
-4. **Gemini API Issues**
-   - Verify API key is correctly copied
-   - Check if you're within API quotas
-   - Ensure the API is properly enabled
-
-For any other issues, consult the [Google Cloud Documentation](https://cloud.google.com/docs) or [Google AI Studio Documentation](https://ai.google.dev/).
-
-## 📝 Usage
-
-1. **Authentication**
-
-   - Register a new account or login
-   - Secure session management
-
-2. **Content Upload**
-
-   - Upload video files or PDFs
-   - Paste YouTube URLs
-   - Support for multiple formats
-
-3. **Study Tools**
-
-   - Access auto-generated study materials
-   - Interact with AI chat assistant
-   - Export notes as PDF
-   - Review with flashcards
-   - Visualize concepts with mind maps
-   - Test knowledge with quizzes
-
-4. **History & Progress**
-   - Track learning progress
-   - Access previous study materials
-   - Review past sessions
+---
 
 ## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT
 
 ---
 
